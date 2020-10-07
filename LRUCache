@@ -1,0 +1,68 @@
+package com.worst.lru;
+
+
+import java.util.HashMap;
+
+public class LRUCache<K, V> implements Cacheable<K, V> {
+
+    private HashMap<K, Entry> map;
+    private DLL dll;
+    private int capacity;
+
+    LRUCache(int capacity) {
+        map = new HashMap<>();
+        dll = new DLL();
+        this.capacity = capacity;
+    }
+
+    @Override
+    public void set(K key, V value) {
+        Entry entry = map.get(key);
+
+        if (entry != null) {
+            entry.setValue(value);
+            dll.removeNode(entry);
+            dll.addAtTop(entry);
+        } else {
+            entry = new Entry();
+            entry.setKey(key);
+            entry.setValue(value);
+            entry.setLeft(null);
+            entry.setRight(null);
+
+            if (map.size() >= capacity) {
+                map.remove(dll.getEndNode().getKey());
+                dll.removeNode(dll.getEndNode());
+                dll.addAtTop(entry);
+            } else {
+                dll.addAtTop(entry);
+            }
+            map.put(key, entry);
+        }
+    }
+
+    @Override
+    public V get(K key) {
+        Entry entry = map.get(key);
+
+        if (entry != null) {
+            dll.removeNode(entry);
+            dll.addAtTop(entry);
+            return (V) entry.getValue();
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean delete(K key) {
+
+        Entry entry = map.get(key);
+        if (entry != null) {
+            map.remove(key);
+            dll.removeNode(entry);
+            return true;
+        }
+        return false;
+    }
+}
