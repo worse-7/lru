@@ -4,8 +4,17 @@ package com.worst.lru;
 public class Entry<K, V> {
     private K key;
     private V value;
-    private Entry left;
-    private Entry right;
+    private Entry<K, V> left;
+    private Entry<K, V> right;
+
+    Entry() {
+
+    }
+
+    Entry(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
 
     public K getKey() {
         return key;
