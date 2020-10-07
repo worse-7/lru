@@ -1,0 +1,56 @@
+package com.worst.lru;
+
+public class DLL {
+
+    private Entry startNode;
+    private Entry endNode;
+
+    public Entry getStartNode() {
+        return startNode;
+    }
+
+    public void setStartNode(Entry startNode) {
+        this.startNode = startNode;
+    }
+
+    public Entry getEndNode() {
+        return endNode;
+    }
+
+    public void setEndNode(Entry endNode) {
+        this.endNode = endNode;
+    }
+
+    DLL() {
+        startNode = null;
+        endNode = null;
+    }
+
+    public void addAtTop(Entry node) {
+        node.setRight(startNode);
+        node.setLeft(null);
+
+        if (startNode != null) {
+            startNode.setLeft(node);
+        }
+        startNode = node;
+        if (endNode == null) {
+            endNode = startNode;
+        }
+    }
+
+    public void removeNode(Entry node) {
+
+        if (node.getLeft() != null) {
+            node.getLeft().setRight(node.getRight());
+        } else {
+            startNode = node.getRight();
+        }
+
+        if (node.getRight() != null) {
+            node.getRight().setLeft(node.getLeft());
+        } else {
+            endNode = node.getLeft();
+        }
+    }
+}
