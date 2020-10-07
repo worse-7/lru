@@ -1,22 +1,42 @@
 package com.worst.lru;
 
-
 public class Driver {
 
     public static void main(String []args) {
-        LRUCache lruCache = new LRUCache(3);
-        lruCache.set("1", "A");
-        lruCache.set("2", "B");
-        lruCache.set("3", "C");
+        LRUCache<String, String> stringCache = new LRUCache<>(3);
+        stringCache.set("1", "A");
+        stringCache.set("2", "B");
+        stringCache.set("3", "C");
 
-        System.out.println(lruCache.get("1"));
-        System.out.println(lruCache.get("2"));
-        System.out.println(lruCache.get("3"));
-        System.out.println(lruCache.get("3"));
-        lruCache.set("4", "D");
-        lruCache.set("5", "E");
-        lruCache.set("6", "F");
-        System.out.println(lruCache.get("3"));
-        System.out.println(lruCache.get("4"));
+        System.out.println(stringCache.get("1"));
+        System.out.println(stringCache.get("2"));
+        System.out.println(stringCache.get("3"));
+        System.out.println(stringCache.get("3"));
+        stringCache.set("4", "D");
+        stringCache.set("5", "E");
+        stringCache.set("6", "F");
+        System.out.println(stringCache.get("3"));
+        System.out.println(stringCache.get("4"));
+
+        LRUCache<String, Integer> integerCache = new LRUCache<>(3);
+        integerCache.set("A", 1);
+        integerCache.set("B", 2);
+        integerCache.set("C", 3);
+
+        System.out.println(integerCache.get("A"));
+        System.out.println(integerCache.get("B"));
+        System.out.println(integerCache.get("C"));
+        System.out.println(integerCache.get("C"));
+
+        integerCache.set("D", 4);
+        integerCache.set("E", 5);
+        integerCache.set("F", 6);
+
+        System.out.println(integerCache.get("A"));
+        System.out.println(integerCache.get("B"));
+        System.out.println(integerCache.get("D"));
+        System.out.println(integerCache.get("E"));
+        System.out.println(integerCache.get("F"));
     }
 }
+
