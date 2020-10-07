@@ -1,9 +1,9 @@
 package com.worst.lru;
 
-public class DLL {
+public class DLL<K, V> {
 
-    private Entry startNode;
-    private Entry endNode;
+    private Entry<K, V> startNode;
+    private Entry<K, V> endNode;
 
     public Entry getStartNode() {
         return startNode;
@@ -26,7 +26,7 @@ public class DLL {
         endNode = null;
     }
 
-    public void addAtTop(Entry node) {
+    public void addToFront(Entry<K, V> node) {
         node.setRight(startNode);
         node.setLeft(null);
 
@@ -39,7 +39,7 @@ public class DLL {
         }
     }
 
-    public void removeNode(Entry node) {
+    private void removeNode(Entry<K, V> node) {
 
         if (node.getLeft() != null) {
             node.getLeft().setRight(node.getRight());
@@ -52,5 +52,10 @@ public class DLL {
         } else {
             endNode = node.getLeft();
         }
+    }
+
+    public void moveToFront(Entry<K, V> node) {
+        removeNode(node);
+        addToFront(node);
     }
 }
