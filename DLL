@@ -5,19 +5,19 @@ public class DLL<K, V> {
     private Entry<K, V> startNode;
     private Entry<K, V> endNode;
 
-    public Entry getStartNode() {
+    public Entry<K, V> getStartNode() {
         return startNode;
     }
 
-    public void setStartNode(Entry startNode) {
+    public void setStartNode(Entry<K, V> startNode) {
         this.startNode = startNode;
     }
 
-    public Entry getEndNode() {
+    public Entry<K, V> getEndNode() {
         return endNode;
     }
 
-    public void setEndNode(Entry endNode) {
+    public void setEndNode(Entry<K, V> endNode) {
         this.endNode = endNode;
     }
 
