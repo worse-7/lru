@@ -5,37 +5,30 @@ import java.util.HashMap;
 
 public class LRUCache<K, V> implements Cacheable<K, V> {
 
-    private HashMap<K, Entry> map;
-    private DLL dll;
+    private HashMap<K, Entry<K, V>> map;
+    private DLL<K, V> dll;
     private int capacity;
 
     LRUCache(int capacity) {
         map = new HashMap<>();
-        dll = new DLL();
+        dll = new DLL<>();
         this.capacity = capacity;
     }
 
     @Override
     public void set(K key, V value) {
-        Entry entry = map.get(key);
+        Entry<K, V> entry = map.get(key);
 
         if (entry != null) {
             entry.setValue(value);
-            dll.removeNode(entry);
-            dll.addAtTop(entry);
+            dll.moveToFront(entry);
         } else {
-            entry = new Entry();
-            entry.setKey(key);
-            entry.setValue(value);
-            entry.setLeft(null);
-            entry.setRight(null);
-
+            entry = new Entry<>(key, value);
             if (map.size() >= capacity) {
                 map.remove(dll.getEndNode().getKey());
-                dll.removeNode(dll.getEndNode());
-                dll.addAtTop(entry);
+                dll.moveToFront(dll.getEndNode());
             } else {
-                dll.addAtTop(entry);
+                dll.addToFront(entry);
             }
             map.put(key, entry);
         }
@@ -43,26 +36,26 @@ public class LRUCache<K, V> implements Cacheable<K, V> {
 
     @Override
     public V get(K key) {
-        Entry entry = map.get(key);
+        Entry<K, V> entry = map.get(key);
 
         if (entry != null) {
-            dll.removeNode(entry);
-            dll.addAtTop(entry);
-            return (V) entry.getValue();
+            dll.moveToFront(entry);
+            return entry.getValue();
         }
 
         return null;
     }
 
     @Override
-    public boolean delete(K key) {
+    public boolean remove(K key) {
 
-        Entry entry = map.get(key);
+        Entry<K, V> entry = map.get(key);
         if (entry != null) {
             map.remove(key);
-            dll.removeNode(entry);
+            dll.moveToFront(entry);
             return true;
         }
         return false;
     }
 }
+
