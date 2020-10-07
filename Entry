@@ -1,6 +1,5 @@
 package com.worst.lru;
 
-
 public class Entry<K, V> {
     private K key;
     private V value;
@@ -32,19 +31,19 @@ public class Entry<K, V> {
         this.value = value;
     }
 
-    public Entry getLeft() {
+    public Entry<K, V> getLeft() {
         return left;
     }
 
-    public void setLeft(Entry left) {
+    public void setLeft(Entry<K, V> left) {
         this.left = left;
     }
 
-    public Entry getRight() {
+    public Entry<K, V> getRight() {
         return right;
     }
 
-    public void setRight(Entry right) {
+    public void setRight(Entry<K, V> right) {
         this.right = right;
     }
 }
